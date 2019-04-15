@@ -28,7 +28,7 @@ echo "Building the project in Linux environment"
 : ${USE_LIBOPENCM3:="OFF"}
 # Select Stdperiph lib use
 : ${USE_FREERTOS:="OFF"}
-# Select source folder
+# Select source folder. Give a false one to trigger an error
 : ${SRC:="__"}
 
 if [ ! -d "source/${SRC}" ]; then

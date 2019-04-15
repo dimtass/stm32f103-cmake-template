@@ -1,44 +1,38 @@
-STM32F103 USB joystick with gestures
+STM32F103 cmake template
 ----
 
-This project implements a USB joystick with gestures recognition.
-That means that you can use the joystick to recognise gestures and
-then send them via USB to your workstation (you can also use UART
-if you prefer). The gestures can be composed with up to `JOYS_SAMPLES_MAX`
-samples and each sample can be one of the following:
+This is a template cmake project for the stm32f103. So what's
+so special about it? Well, it supports the following things:
 
-* `U`   : up
-* `D`   : down
-* `L`   : left
-* `R`   : right
-* `UR`  : up - right
-* `DR`  : down - right
-* `DL`  : down - left
-* `UL`  : up - left
-* `B`   : button press
+* STM32 Standard Peripheral Library
+* STM32 USB FS Device Driver Library
+* opencm3 library for STM32
+* FreeRTOS
 
-Each gesture is transmitted via USB with following prefix:
-```
-DATA=
-```
+To select the which libraries you want to use you need to provide
+cmake with the proper options. By default all the options are set
+to `OFF`. The supported options are:
 
-and a `\n` (newline) at the end of the string.
+* `USE_STDPERIPH_DRIVER`: If set to `ON` enables the stdperiph library
+* `USE_STM32_USB_FS_LIB`: If set to `ON` enabled the ST's USB lib
+* `USE_LIBOPENCM3`: If set to `ON` enables the opencm3 library
+* `USE_FREERTOS`: If set to `ON` enables FreeRTOS
 
-For example, this is a full circle on the joystick
-```
-DATA=U,UR,R,DR,D,DL,L,UL,U
-```
+You also need to provide cmake with the source folder by pointing
+the folder to the `SRC` parameter.
 
-You can see a sample video in [here](https://www.youtube.com/watch?v=TYFL-sVukkc)
+Finally, you also need to provide the path of the toolchain to
+use in the `CMAKE_TOOLCHAIN`.
 
-### How to compile and flash
-
+### Examples
+To use the `stdperiph` library example run this command:
 ```sh
 CLEANBUILD=true USE_STDPERIPH_DRIVER=ON SRC=src_stdperiph ./build.sh
 ```
 
+To use the `freertos`/`opencm3` example run this command:
 ```sh
-LEANBUILD=true USE_LIBOPENCM3=ON USE_FREERTOS=ON SRC=src_freertos ./build.sh
+CLEANBUILD=true USE_LIBOPENCM3=ON USE_FREERTOS=ON SRC=src_freertos ./build.sh
 ```
 
 To flash the HEX file in windows use st-link utility like this:
