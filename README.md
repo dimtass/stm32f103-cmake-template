@@ -32,26 +32,14 @@ DATA=U,UR,R,DR,D,DL,L,UL,U
 You can see a sample video in [here](https://www.youtube.com/watch?v=TYFL-sVukkc)
 
 ### How to compile and flash
-You need cmake to build this project either on Windows or Linux.
-To setup the cmake properly
-follow the instructions from [here](https://bitbucket.org/dimtass/cmake_toolchains/src/master/README.md).
-Then edit the `cmake/TOOLCHAIN_arm_none_eabi_cortex_m3.cmake` file
-and point `TOOLCHAIN_DIR` to the correct GCC path.
 
-e.g. on Windows
 ```sh
-set(TOOLCHAIN_DIR C:/opt/gcc-arm-none-eabi-4_9-2015q3-20150921-win32)
+CLEANBUILD=true USE_STDPERIPH_DRIVER=ON SRC=src_stdperiph ./build.sh
 ```
 
-or on Linux
 ```sh
-set(TOOLCHAIN_DIR /opt/gcc-arm-none-eabi-4_9-2015q3)
+LEANBUILD=true USE_LIBOPENCM3=ON USE_FREERTOS=ON SRC=src_freertos ./build.sh
 ```
-
-Then on Windows run ```build.cmd``` or on Linux run ```./build.bash```
-and the .bin and .hex files should be created in the ```build-stm32/src```
-folder. Also, a .cproject and .project files are created if you want to
-edit the source code.
 
 To flash the HEX file in windows use st-link utility like this:
 ```"C:\Program Files (x86)\STMicroelectronics\STM32 ST-LINK Utility\ST-LINK Utility\ST-LINK_CLI.exe" -c SWD -p build-stm32\src\stm32f103_wifi_usb_psu.hex -Rst```

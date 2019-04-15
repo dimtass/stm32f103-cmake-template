@@ -88,4 +88,4 @@ message(STATUS
 
 
 # add the source code directory
-add_subdirectory(src)
+add_subdirectory(${SRC})

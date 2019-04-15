@@ -1,4 +1,4 @@
-set(FREERTOS_DIR ${CMAKE_SOURCE_DIR}/libs/freertos)
+set(FREERTOS_DIR ${CMAKE_SOURCE_DIR}/libs/freertos/FreeRTOS/Source)
 
 # Make sure that git submodule is initialized and updated
 if (NOT EXISTS "${FREERTOS_DIR}")
@@ -6,7 +6,8 @@ if (NOT EXISTS "${FREERTOS_DIR}")
 endif()
 
 set(FREERTOS_INC_DIR
-    ${FREERTOS_DIR}/inc
+    ${FREERTOS_DIR}/include
+    ${FREERTOS_DIR}/portable/GCC/ARM_CM3
 )
 
 include_directories(
@@ -15,20 +16,20 @@ include_directories(
 )
 
 set(FREERTOS_LIB_SRC
-    ${FREERTOS_DIR}/src/croutine.c
-    ${FREERTOS_DIR}/src/event_groups.c
-    ${FREERTOS_DIR}/src/heap_1.c
-    ${FREERTOS_DIR}/src/heap_2.c
-    ${FREERTOS_DIR}/src/heap_3.c
-    ${FREERTOS_DIR}/src/heap_4.c
-    ${FREERTOS_DIR}/src/heap_5.c
-    ${FREERTOS_DIR}/src/list.c
-    ${FREERTOS_DIR}/src/port.c
-    ${FREERTOS_DIR}/src/queue.c
-    ${FREERTOS_DIR}/src/readme.txt
-    ${FREERTOS_DIR}/src/stream_buffer.c
-    ${FREERTOS_DIR}/src/tasks.c
-    ${FREERTOS_DIR}/src/timers.c
+    ${FREERTOS_DIR}/portable/GCC/ARM_CM3/port.c
+    ${FREERTOS_DIR}/portable/MemMang/heap_1.c
+    ${FREERTOS_DIR}/portable/MemMang/heap_2.c
+    ${FREERTOS_DIR}/portable/MemMang/heap_3.c
+    ${FREERTOS_DIR}/portable/MemMang/heap_4.c
+    ${FREERTOS_DIR}/portable/MemMang/heap_5.c
+    ${FREERTOS_DIR}/croutine.c
+    ${FREERTOS_DIR}/event_groups.c
+    ${FREERTOS_DIR}/list.c
+    ${FREERTOS_DIR}/queue.c
+    ${FREERTOS_DIR}/readme.txt
+    ${FREERTOS_DIR}/stream_buffer.c
+    ${FREERTOS_DIR}/tasks.c
+    ${FREERTOS_DIR}/timers.c
 )
 
 set_source_files_properties(${FREERTOS_LIB_SRC}

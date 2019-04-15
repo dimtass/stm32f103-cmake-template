@@ -19,7 +19,7 @@ set(LIBOPENCM3_LIB opencm3_stm32f1)
 
 set(LINKER_FILE "${LIBOPENCM3_DIR}/lib/stm32/f1/stm32f103x8.ld")
 
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --static -nostartfiles")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --static -nostartfiles ")
 
 set(LIBOPENCM3_LINKER_FLAGS " --static -nostartfiles ")
 

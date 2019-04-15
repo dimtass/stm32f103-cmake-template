@@ -4,6 +4,7 @@ include_directories(inc)
 
 file(GLOB C_SOURCE
     main.c
+    opencm3.c
 )
 
 set_source_files_properties(${C_SOURCE}
@@ -24,12 +25,6 @@ endif()
 if (EXTERNAL_LIBS)
     target_link_libraries(${PROJECT_NAME}.elf
         ${EXTERNAL_LIBS}
-    )
-endif()
-
-if (USE_STM32_USB_FS_LIB)
-    target_link_libraries(${PROJECT_NAME}.elf
-        UsbFsDeviceLib
     )
 endif()
 

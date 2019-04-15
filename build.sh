@@ -28,6 +28,13 @@ echo "Building the project in Linux environment"
 : ${USE_LIBOPENCM3:="OFF"}
 # Select Stdperiph lib use
 : ${USE_FREERTOS:="OFF"}
+# Select source folder
+: ${SRC:="__"}
+
+if [ ! -d "source/${SRC}" ]; then
+    echo -e "You need to specify the SRC parameter to point to the source code"
+    exit 1
+fi
 
 if [ "${ECLIPSE}" == "true" ]; then
 	IDE_GENERATOR="Eclipse CDT4 - Unix Makefiles" 
@@ -43,6 +50,7 @@ if [ "${ARCHITECTURE}" == "stm32" ]; then
                 -DUSE_STM32_USB_FS_LIB=${USE_STM32_USB_FS_LIB} \
                 -DUSE_LIBOPENCM3=${USE_LIBOPENCM3} \
                 -DUSE_FREERTOS=${USE_FREERTOS} \
+                -DSRC=${SRC} \
                 "
 else
     >&2 echo "*** Error: Architecture '${ARCHITECTURE}' unknown."
