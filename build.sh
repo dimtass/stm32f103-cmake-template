@@ -2,24 +2,14 @@
 
 echo "Building the project in Linux environment"
 
-# select architecture
-: ${ARCHITECTURE:=stm32}
 # Toolchain path
 : ${TOOLCHAIN_DIR:="/opt/toolchains/gcc-arm-none-eabi-7-2018-q2-update"}
-# select to create eclipse project files
-: ${ECLIPSE_IDE:=false}
-# select to clean previous builds
-: ${CLEANBUILD:=false}
-# Compile objects in parallel, the -jN flag in make
-: ${PARALLEL:=$(expr $(getconf _NPROCESSORS_ONLN) + 1)}
-# Current working directory
-: ${WORKING_DIR:=$(pwd)}
-# default generator
-: ${IDE_GENERATOR:="Unix Makefiles"}
-# cmake scripts folder
-: ${SCRIPTS_CMAKE:="${WORKING_DIR}/source/cmake"}
 # select cmake toolchain
 : ${CMAKE_TOOLCHAIN:=TOOLCHAIN_arm_none_eabi_cortex_m3.cmake}
+# select to clean previous builds
+: ${CLEANBUILD:=false}
+# select to create eclipse project files
+: ${ECLIPSE_IDE:=false}
 # Select Stdperiph lib use
 : ${USE_STDPERIPH_DRIVER:="OFF"}
 # Select Stdperiph lib use
@@ -30,6 +20,17 @@ echo "Building the project in Linux environment"
 : ${USE_FREERTOS:="OFF"}
 # Select source folder. Give a false one to trigger an error
 : ${SRC:="__"}
+
+# Set default arch to stm32
+ARCHITECTURE=stm32
+# default generator
+IDE_GENERATOR="Unix Makefiles"
+# Current working directory
+WORKING_DIR=$(pwd)
+# cmake scripts folder
+SCRIPTS_CMAKE="${WORKING_DIR}/source/cmake"
+# Compile objects in parallel, the -jN flag in make
+PARALLEL=$(expr $(getconf _NPROCESSORS_ONLN) + 1)
 
 if [ ! -d "source/${SRC}" ]; then
     echo -e "You need to specify the SRC parameter to point to the source code"
