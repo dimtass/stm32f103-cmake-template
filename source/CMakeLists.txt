@@ -29,7 +29,7 @@ endif()
 # CMSIS shared library
 # Standard Peripheral Driver shared library
 if (USE_STDPERIPH_DRIVER)
-    include(cmake/stdperiph_lib.cmake)
+    include(cmake/stdperiph.cmake)
 endif()
 
 # USB FS Device Driver Library
