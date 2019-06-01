@@ -1,5 +1,5 @@
 set(STDPERIPH_DIR ${CMAKE_SOURCE_DIR}/libs/stdperiph_lib/stm32f1)
-set(CMSIS_DIR ${CMAKE_SOURCE_DIR}/libs/cmsis)
+set(CMSIS_DIR ${CMAKE_SOURCE_DIR}/libs/stm32f1_cmsis)
 set(CONFIG_DIR ${CMAKE_SOURCE_DIR}/config)
 
 # Make sure that git submodule is initialized and updated
