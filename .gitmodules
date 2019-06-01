@@ -10,9 +10,9 @@
 [submodule "source/libs/libopencm3"]
 	path = source/libs/libopencm3
 	url = git@github.com:dimtass/libopencm3.git
-[submodule "source/libs/stdperiph_lib"]
-	path = source/libs/stdperiph_lib
-	url = git@bitbucket.org:dimtass/stdperiph_lib.git
-[submodule "source/libs/stm32f1_cmsis"]
-	path = source/libs/stm32f1_cmsis
-	url = git@bitbucket.org:dimtass/stm32f1_cmsis.git
+[submodule "source/libs/stdperiph"]
+	path = source/libs/stdperiph
+	url = git@github.com:dimtass/stdperiph.git
+[submodule "source/libs/cmsis"]
+	path = source/libs/cmsis
+	url = git@github.com:dimtass/cmsis.git
