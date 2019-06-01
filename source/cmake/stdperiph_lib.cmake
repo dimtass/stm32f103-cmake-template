@@ -1,4 +1,4 @@
-set(STDPERIPH_DIR ${CMAKE_SOURCE_DIR}/libs/stdperiph/stm32f1)
+set(STDPERIPH_DIR ${CMAKE_SOURCE_DIR}/libs/stdperiph_lib/stm32f1)
 set(CMSIS_DIR ${CMAKE_SOURCE_DIR}/libs/cmsis)
 set(CONFIG_DIR ${CMAKE_SOURCE_DIR}/config)
 
