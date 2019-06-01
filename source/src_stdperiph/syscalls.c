@@ -60,7 +60,7 @@ extern int errno;
 extern int __io_putchar(int ch) __attribute__((weak));
 extern int __io_getchar(void) __attribute__((weak));
 
-register char * stack_ptr asm("sp");
+register char * stack_ptr __asm("sp");
 
 char *__env[1] = { 0 };
 char **environ = __env;
@@ -113,7 +113,7 @@ int _write(int file, char *ptr, int len)
 
 caddr_t __attribute__ ((used)) _sbrk(int incr)
 {
-	extern char end asm("end");
+	extern char end __asm("end");
 	static char *heap_end;
 	char *prev_heap_end;
 
