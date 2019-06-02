@@ -6,8 +6,8 @@ file(GLOB C_SOURCE
     main.c
     system_stm32f10x.c
     syscalls.c
-    tiny_printf.c
-    overclock_stm32f103.c
+    # tiny_printf.c
+    # overclock_stm32f103.c
     stm32f10x_it.c
 )
 

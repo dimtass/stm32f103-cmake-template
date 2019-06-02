@@ -50,9 +50,9 @@ set_source_files_properties(${STDPERIPH_LIB_SRC}
     PROPERTIES COMPILE_FLAGS ${STM32_DEFINES}
 )
 
-add_library(stdperiph_lib STATIC ${STDPERIPH_LIB_SRC})
+add_library(stdperiph STATIC ${STDPERIPH_LIB_SRC})
 
-set_target_properties(stdperiph_lib PROPERTIES LINKER_LANGUAGE C)
+set_target_properties(stdperiph PROPERTIES LINKER_LANGUAGE C)
 
 # add startup and linker file
 set(STARTUP_ASM_FILE "${CONFIG_DIR}/startup_stm32f10x_md.s")
@@ -62,4 +62,4 @@ set(LINKER_FILE "${CONFIG_DIR}/LinkerScript.ld")
 
 set(EXTERNAL_EXECUTABLES ${EXTERNAL_EXECUTABLES} ${STARTUP_ASM_FILE})
 
-set(EXTERNAL_LIBS ${EXTERNAL_LIBS} stdperiph_lib)
+set(EXTERNAL_LIBS ${EXTERNAL_LIBS} stdperiph)

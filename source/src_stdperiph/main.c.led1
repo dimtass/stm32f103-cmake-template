@@ -1,0 +1,67 @@
+/**
+ * This example is using only the timer scheduler to
+ * toggle the LED.
+ */
+
+#include "stm32f10x.h"
+#include "debug_trace.h"
+
+#include "timer_sched.h"
+
+#define LED_TIMER_MS 500
+
+volatile uint32_t glb_tmr_1ms;
+
+#define LED_PORT GPIOC
+#define LED_PIN GPIO_Pin_13
+
+uint32_t trace_levels;
+
+static LIST_HEAD(obj_timer_list);
+
+static inline void main_loop(void)
+{
+	/* 1 ms timer */
+	if (glb_tmr_1ms) {
+		glb_tmr_1ms = 0;
+		mod_timer_polling(&obj_timer_list);
+	}
+}
+
+void led_toggle(void)
+{
+	LED_PORT->ODR ^= LED_PIN;
+}
+
+void led_init(void)
+{
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC, ENABLE);
+	GPIO_InitTypeDef GPIO_InitStructure;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+	GPIO_InitStructure.GPIO_Pin = LED_PIN;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+	GPIO_Init(LED_PORT, &GPIO_InitStructure);
+
+	LED_PORT->ODR &= ~LED_PIN;
+}
+
+int main(void)
+{
+	if (SysTick_Config(SystemCoreClock / 1000)) {
+		/* Capture error */
+		while (1);
+	}
+	
+	trace_levels_set(
+			0
+			| TRACE_LEVEL_DEFAULT
+			,1);
+
+	led_init();
+	mod_timer_add(NULL, LED_TIMER_MS, (void*) &led_toggle, &obj_timer_list);
+
+	/* main loop */
+	while (1) {
+		main_loop();
+	}
+}

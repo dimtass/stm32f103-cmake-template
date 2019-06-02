@@ -22,3 +22,6 @@
 [submodule "source/libs/source/libs/noarch_c_lib"]
 	path = source/libs/source/libs/noarch_c_lib
 	url = git@bitbucket.org:dimtass/noarch_c_lib.git
+[submodule "source/libs/noarch_c_lib"]
+	path = source/libs/noarch_c_lib
+	url = git@bitbucket.org:dimtass/noarch_c_lib.git

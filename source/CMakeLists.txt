@@ -34,9 +34,10 @@ endif()
 
 # USB FS Device Driver Library
 if (USE_STM32_USB_FS_LIB)
-    add_subdirectory(STM32_USB-FS-Device_Driver)
-    set(STM32_USB_FS_DEVICE_INC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/STM32_USB-FS-Device_Driver/inc)
-    include_directories(${STM32_USB_FS_DEVICE_INC_DIR})
+    include(cmake/stm32_usb_fs_driver.cmake)
+    # add_subdirectory(STM32_USB-FS-Device_Driver)
+    # set(STM32_USB_FS_DEVICE_INC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/STM32_USB-FS-Device_Driver/inc)
+    # include_directories(${STM32_USB_FS_DEVICE_INC_DIR})
 endif()
 
 # libopencm3
@@ -48,6 +49,13 @@ endif()
 if (USE_FREERTOS)
     include(cmake/freertos.cmake)
 endif()
+
+include (cmake/noarch_c_lib.cmake)
+
+include (cmake/stm32_dimtass_lib.cmake)
+
+# add_custom_target(combined ALL
+#   COMMAND ${CMAKE_AR} rc libcombined.a $<TARGET_FILE:stdperiph> $<TARGET_FILE:stm32dimtasslib>)
 
 # force stm builds to debug.  This is a hack as when release is set, it automatically 
 # sets the invalid -O3 flag on the assembler.
@@ -62,7 +70,7 @@ create_language_provider("${CMAKE_BINARY_DIR}/.settings" "${GCC_PREFIX}-" "${CXX
 enable_language(ASM)
 # Custom STM32 options for assembler and gcc
 set(STM32_ASM_OPTIONS "-mcpu=cortex-m3 -mthumb -mlittle-endian -mthumb-interwork ")
-set(STM32_COMPILER_OPTIONS "${STM32_ASM_OPTIONS} -mfloat-abi=soft -Wall -Werror -Wl,-Map=output.map -Wl,--gc-sections -lm -lc ")
+set(STM32_COMPILER_OPTIONS "${STM32_ASM_OPTIONS} -mfloat-abi=soft -Wall -Werror -Wl,-Map=output.map -Wl,--gc-sections -lc -lm ")
 # Set project options
 SET(CMAKE_C_FLAGS "${STM32_COMPILER_OPTIONS} ${COMPILER_OPTIMISATION} --specs=nano.specs -std=c11" CACHE INTERNAL "c compiler flags")
 SET(CMAKE_CXX_FLAGS "${STM32_COMPILER_OPTIONS} ${COMPILER_OPTIMISATION} --specs=nano.specs -std=c++11 " CACHE INTERNAL "cxx compiler flags")

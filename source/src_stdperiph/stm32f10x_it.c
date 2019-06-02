@@ -23,8 +23,9 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f10x_it.h"
-#include "platform_config.h"
+#include "debug_trace.h"
 
+extern volatile uint32_t glb_tmr_1ms;
 
 /**
  * @brief  This function handles NMI exception.
@@ -117,5 +118,5 @@ void PendSV_Handler(void)
  */
 void SysTick_Handler(void)
 {
-	glb.tmr_1ms++;
+	glb_tmr_1ms++;
 }
