@@ -4,6 +4,7 @@
  * example is that now the LED supports also patterns.
  */
 
+#include <stdio.h>
 #include "stm32f10x.h"
 #include "debug_trace.h"
 #include "dev_uart.h"
@@ -22,6 +23,8 @@ uint32_t trace_levels;
 /* Create the list head for the timer */
 static LIST_HEAD(obj_timer_list);
 
+// Declare uart
+DECLARE_UART_DEV(dbg_uart, USART1, 115200, 256, 10, 1);
 
 static inline void main_loop(void)
 {
@@ -52,6 +55,7 @@ void led_init(void *data)
 	GPIO_Init(LED_PORT, &GPIO_InitStructure);
 
 	LED_PORT->ODR |= LED_PIN;
+	TRACE(("init\n"));
 }
 
 int main(void)
@@ -66,8 +70,6 @@ int main(void)
 			| TRACE_LEVEL_DEFAULT
 			,1);
 
-	// Declare uart
-	DECLARE_UART_DEV(dbg_uart, USART1, 115200, 256, 10, 1);
 	// setup uart port
 	dev_uart_add(&dbg_uart);
 	// set callback for uart rx
@@ -77,12 +79,13 @@ int main(void)
 	/* Declare LED module and initialize it */
 	DECLARE_MODULE_LED(led_module, 8, 100);
 	mod_led_init(&led_module);
-	mod_timer_add(&led_module, led_module.tick_ms, (void*) &mod_led_update, &obj_timer_list);
+	mod_timer_add((void*) &led_module, led_module.tick_ms, (void*) &mod_led_update, &obj_timer_list);
 	/* Declare LED */
 	DECLARE_DEV_LED(def_led, &led_module, 1, NULL, &led_init, &led_on, &led_off);
 	dev_led_set_pattern(&def_led, 0b11001100);
+	dev_led_add(&def_led);
 
-	// TRACE(("Program started\n"));
+	TRACE(("Program started\n"));
 
 	/* main loop */
 	while (1) {
