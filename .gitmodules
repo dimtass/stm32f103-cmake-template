@@ -25,3 +25,6 @@
 [submodule "source/libs/noarch_c_lib"]
 	path = source/libs/noarch_c_lib
 	url = git@bitbucket.org:dimtass/noarch_c_lib.git
+[submodule "source/libs/stm32f1_dimtass_lib"]
+	path = source/libs/stm32f1_dimtass_lib
+	url = git@bitbucket.org:dimtass/stm32f1_dimtass_lib.git

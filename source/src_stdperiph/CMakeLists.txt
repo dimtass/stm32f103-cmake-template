@@ -3,11 +3,12 @@ cmake_minimum_required(VERSION 3.6)
 include_directories(inc)
 
 file(GLOB C_SOURCE
+    # Add the external source files from my lib
+    ${STM32_DIMTASS_LIB_SRC}
+    # Add the local and project specific files
     main.c
     system_stm32f10x.c
     syscalls.c
-    # tiny_printf.c
-    # overclock_stm32f103.c
     stm32f10x_it.c
 )
 
