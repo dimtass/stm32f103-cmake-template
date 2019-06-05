@@ -39,7 +39,7 @@ To flash the HEX file in windows use st-link utility like this:
 ```"C:\Program Files (x86)\STMicroelectronics\STM32 ST-LINK Utility\ST-LINK Utility\ST-LINK_CLI.exe" -c SWD -p build-stm32\src\stm32f103_wifi_usb_psu.hex -Rst```
 
 To flash the bin in Linux:
-```st-flash --reset write build-stm32/src/stm32f103_wifi_usb_psu.bin 0x8000000```
+```st-flash --reset write build-stm32/src_stdperiph/stm32-cmake-template.bin 0x8000000```
 
 ## FW details
 * `CMSIS version`: 5.3.0

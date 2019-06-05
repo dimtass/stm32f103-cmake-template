@@ -77,13 +77,14 @@ int main(void)
  	mod_timer_add((void*) &dbg_uart, 5, (void*) &dev_uart_update, &obj_timer_list);
 
 	/* Declare LED module and initialize it */
-	DECLARE_MODULE_LED(led_module, 8, 100);
+	DECLARE_MODULE_LED(led_module, 8, 250);
 	mod_led_init(&led_module);
 	mod_timer_add((void*) &led_module, led_module.tick_ms, (void*) &mod_led_update, &obj_timer_list);
+
 	/* Declare LED */
 	DECLARE_DEV_LED(def_led, &led_module, 1, NULL, &led_init, &led_on, &led_off);
-	dev_led_set_pattern(&def_led, 0b11001100);
 	dev_led_add(&def_led);
+	dev_led_set_pattern(&def_led, 0b11001100);
 
 	TRACE(("Program started\n"));
 
