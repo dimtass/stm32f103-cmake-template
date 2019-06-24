@@ -24,7 +24,18 @@ the folder to the `SRC` parameter.
 Finally, you also need to provide the path of the toolchain to
 use in the `CMAKE_TOOLCHAIN`.
 
-### Examples
+## Cloning the code
+Because this repo has dependencies on other submodules, in order to
+fetch the repo use the following command:
+
+```sh
+git clone --recursive -j8 git@bitbucket.org:dimtass/stm32f103-cmake-template.git
+
+# or for http
+git clone --recursive -j8 https://dimtass@bitbucket.org/dimtass/stm32f103-cmake-template.git
+```
+
+## Examples
 To use the `stdperiph` library example run this command:
 ```sh
 CLEANBUILD=true USE_STDPERIPH_DRIVER=ON SRC=src_stdperiph ./build.sh
