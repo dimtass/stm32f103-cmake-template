@@ -1,30 +1,27 @@
-[submodule "source/libopencm3"]
-	path = source/libopencm3
+[submodule "source/libs/libopencm3"]
+	path = source/libs/libopencm3
 	url = https://github.com/libopencm3/libopencm3.git
 [submodule "source/libs/freertos"]
 	path = source/libs/freertos
-	url = git@github.com:dimtass/freertos.git
+	url = https://github.com/dimtass/freertos.git
 [submodule "source/libs/stm32-usb-fs-device-driver"]
 	path = source/libs/stm32-usb-fs-device-driver
-	url = git@github.com:dimtass/stm32-usb-fs-device-driver.git
-[submodule "source/libs/libopencm3"]
-	path = source/libs/libopencm3
-	url = git@github.com:dimtass/libopencm3.git
+	url = https://github.com/dimtass/stm32-usb-fs-device-driver.git
 [submodule "source/libs/stdperiph"]
 	path = source/libs/stdperiph
-	url = git@github.com:dimtass/stdperiph.git
+	url = https://github.com/dimtass/stdperiph.git
 [submodule "source/libs/cmsis"]
 	path = source/libs/cmsis
-	url = git@github.com:dimtass/cmsis.git
+	url = https://github.com/dimtass/cmsis.git
 [submodule "source/libs/source/libs/stm32f1_dimtass_lib"]
 	path = source/libs/source/libs/stm32f1_dimtass_lib
-	url = git@bitbucket.org:dimtass/stm32f1_dimtass_lib.git
+	url = https://bitbucket.org/dimtass/stm32f1_dimtass_lib.git
 [submodule "source/libs/source/libs/noarch_c_lib"]
 	path = source/libs/source/libs/noarch_c_lib
-	url = git@bitbucket.org:dimtass/noarch_c_lib.git
+	url = https://bitbucket.org/dimtass/noarch_c_lib.git
 [submodule "source/libs/noarch_c_lib"]
 	path = source/libs/noarch_c_lib
-	url = git@bitbucket.org:dimtass/noarch_c_lib.git
+	url = https://bitbucket.org/dimtass/noarch_c_lib.git
 [submodule "source/libs/stm32f1_dimtass_lib"]
 	path = source/libs/stm32f1_dimtass_lib
-	url = git@bitbucket.org:dimtass/stm32f1_dimtass_lib.git
+	url = https://bitbucket.org/dimtass/stm32f1_dimtass_lib.git
