@@ -1,5 +1,5 @@
-[submodule "source/libopencm3"]
-	path = source/libopencm3
+[submodule "source/libs/libopencm3"]
+	path = source/libs/libopencm3
 	url = https://github.com/libopencm3/libopencm3.git
 [submodule "source/libs/freertos"]
 	path = source/libs/freertos
