@@ -7,9 +7,6 @@
 [submodule "source/libs/stm32-usb-fs-device-driver"]
 	path = source/libs/stm32-usb-fs-device-driver
 	url = https://github.com/dimtass/stm32-usb-fs-device-driver.git
-[submodule "source/libs/libopencm3"]
-	path = source/libs/libopencm3
-	url = https://github.com/dimtass/libopencm3.git
 [submodule "source/libs/stdperiph"]
 	path = source/libs/stdperiph
 	url = https://github.com/dimtass/stdperiph.git
