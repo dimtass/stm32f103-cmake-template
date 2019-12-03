@@ -4,7 +4,7 @@
       entrypoint: [""]
     
     variables:
-      GIT_SUBMODULE_STRATEGY: none
+      GIT_SUBMODULE_STRATEGY: recursive
     
     stages:
       - build
