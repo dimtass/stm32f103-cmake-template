@@ -30,7 +30,7 @@ WORKING_DIR=$(pwd)
 # cmake scripts folder
 SCRIPTS_CMAKE="${WORKING_DIR}/source/cmake"
 # Compile objects in parallel, the -jN flag in make
-PARALLEL=$(expr $(getconf _NPROCESSORS_ONLN) + 1)
+PARALLEL=$(nproc)
 
 if [ ! -d "source/${SRC}" ]; then
     echo -e "You need to specify the SRC parameter to point to the source code"
