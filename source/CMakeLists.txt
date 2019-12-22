@@ -8,6 +8,7 @@ option(USE_STDPERIPH_DRIVER "Use stdperiph library" OFF)
 option(USE_STM32_USB_FS_LIB "Use the STM32 USB FS device driver lib" OFF) 
 option(USE_LIBOPENCM3 "Use openlibcm3 library" OFF)
 option(USE_FREERTOS "Use FreeRTOS" OFF)
+option(USE_SEMIHOSTING "Use semi-hosting" OFF)
 
 # Set STM32 SoC specific variables
 set(STM32_DEFINES " \
@@ -70,14 +71,18 @@ create_language_provider("${CMAKE_BINARY_DIR}/.settings" "${GCC_PREFIX}-" "${CXX
 enable_language(ASM)
 # Custom STM32 options for assembler and gcc
 set(STM32_ASM_OPTIONS "-mcpu=cortex-m3 -mthumb -mlittle-endian -mthumb-interwork ")
-set(STM32_COMPILER_OPTIONS "${STM32_ASM_OPTIONS} -mfloat-abi=soft -Wall -Werror -Wl,-Map=output.map -Wl,--gc-sections -lc -lm ")
+set(STM32_COMPILER_OPTIONS "${STM32_ASM_OPTIONS} -ffunction-sections -fdata-sections -mfloat-abi=soft -Wall -Werror -Wl,-Map=output.map -Wl,--gc-sections -lc -lm ")
 # Set project options
-SET(CMAKE_C_FLAGS "${STM32_COMPILER_OPTIONS} ${COMPILER_OPTIMISATION} --specs=nano.specs -std=c11" CACHE INTERNAL "c compiler flags")
-SET(CMAKE_CXX_FLAGS "${STM32_COMPILER_OPTIONS} ${COMPILER_OPTIMISATION} --specs=nano.specs -std=c++11 " CACHE INTERNAL "cxx compiler flags")
+SET(CMAKE_C_FLAGS "${STM32_COMPILER_OPTIONS} ${COMPILER_OPTIMISATION} -std=c11" CACHE INTERNAL "c compiler flags")
+SET(CMAKE_CXX_FLAGS "${STM32_COMPILER_OPTIONS} ${COMPILER_OPTIMISATION} -std=c++11 " CACHE INTERNAL "cxx compiler flags")
 SET(CMAKE_ASM_FLAGS "${STM32_ASM_OPTIONS}" CACHE INTERNAL "asm compiler flags")
 # -mthumb -mcpu=cortex-m3 -mfix-cortex-m3-ldrd   -Wl,-Map=linker.map -Wl,-cref  -Wl,--gc-sections
+set(EXTRA_LINKER_FLAGS "--specs=nano.specs -lc")
+if (USE_SEMIHOSTING)
+    set(EXTRA_LINKER_FLAGS "${EXTRA_LINKER_FLAGS} --specs=nosys.specs --specs=rdimon.specs -lrdimon")
+endif()
 SET(CMAKE_EXE_LINKER_FLAGS "${STM32_COMPILER_OPTIONS} ${LIBOPENCM3_LINKER_FLAGS} -Wl,-Map=linker.map -Wl,-cref -Wl,--gc-sections" CACHE INTERNAL "exe link flags")
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${COMPILER_OPTIONS} -T${LINKER_FILE}")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${EXTRA_LINKER_FLAGS} -T${LINKER_FILE}")
 
 message(STATUS "System Processor      : ${CMAKE_SYSTEM_PROCESSOR}")
 message(STATUS
@@ -92,6 +97,7 @@ message(STATUS
     "   USB FS includes : ${STM32_USB_FS_DEVICE_INC_DIR}\n"
     "   FreeRTOS        : ${FREERTOS_INC_DIR}\n"
     "   libopencm3      : ${LIBOPENCM3_INC_DIR}\n"
+    "   semihosting     : ${SEMIHOSTING_LINKER_FLAGS}\n"
 )
 
 

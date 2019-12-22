@@ -26,6 +26,10 @@ static LIST_HEAD(obj_timer_list);
 // Declare uart
 DECLARE_UART_DEV(dbg_uart, USART1, 115200, 256, 10, 1);
 
+#ifdef USE_SEMIHOSTING
+extern void initialise_monitor_handles(void);
+#endif
+
 static inline void main_loop(void)
 {
 	/* 1 ms timer */
@@ -86,6 +90,9 @@ int main(void)
 	dev_led_add(&def_led);
 	dev_led_set_pattern(&def_led, 0b11001100);
 
+#ifdef USE_SEMIHOSTING
+	initialise_monitor_handles();
+#endif
 	TRACE(("Program started\n"));
 
 	/* main loop */

@@ -18,6 +18,8 @@ echo "Building the project in Linux environment"
 : ${USE_LIBOPENCM3:="OFF"}
 # Select Stdperiph lib use
 : ${USE_FREERTOS:="OFF"}
+# Enable semi-hosting
+: ${USE_SEMIHOSTING:="OFF"}
 # Select source folder. Give a false one to trigger an error
 : ${SRC:="__"}
 
@@ -51,6 +53,7 @@ if [ "${ARCHITECTURE}" == "stm32" ]; then
                 -DUSE_STM32_USB_FS_LIB=${USE_STM32_USB_FS_LIB} \
                 -DUSE_LIBOPENCM3=${USE_LIBOPENCM3} \
                 -DUSE_FREERTOS=${USE_FREERTOS} \
+                -DUSE_SEMIHOSTING=${USE_SEMIHOSTING} \
                 -DSRC=${SRC} \
                 "
 else
@@ -71,6 +74,7 @@ echo "cmake flags       : ${CMAKE_FLAGS}"
 echo "cmake scripts     : ${SCRIPTS_CMAKE}"
 echo "IDE generator     : ${IDE_GENERATOR}"
 echo "Threads           : ${PARALLEL}"
+echo "Semihosting       : ${USE_SEMIHOSTING}"
 
 mkdir -p build-stm32
 cd build-stm32
