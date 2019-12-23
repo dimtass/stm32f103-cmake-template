@@ -113,6 +113,7 @@ message(STATUS
     "   libopencm3      : ${LIBOPENCM3_INC_DIR}\n"
     "   semihosting     : ${SEMIHOSTING_LINKER_FLAGS}\n"
     "   st-term         : ${USE_STTERM}\n"
+    "   debug UART      : ${USE_DBGUART}\n"
 )
 
 # add the source code directory
