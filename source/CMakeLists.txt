@@ -9,6 +9,8 @@ option(USE_STM32_USB_FS_LIB "Use the STM32 USB FS device driver lib" OFF)
 option(USE_LIBOPENCM3 "Use openlibcm3 library" OFF)
 option(USE_FREERTOS "Use FreeRTOS" OFF)
 option(USE_SEMIHOSTING "Use semi-hosting" OFF)
+option(USE_STTERM "Use st-term" OFF)
+option(USE_DBGUART "Use debug UART" OFF)
 
 # Set STM32 SoC specific variables
 set(STM32_DEFINES " \
@@ -18,6 +20,18 @@ set(STM32_DEFINES " \
     -DSTM32 \
     -DSTM32F10X_MD \
     ")
+
+if (USE_SEMIHOSTING)
+set(STM32_DEFINES "${STM32_DEFINES} -DUSE_SEMIHOSTING")
+endif()
+
+if (USE_STTERM)
+set(STM32_DEFINES "${STM32_DEFINES} -DUSE_STTERM")
+endif()
+
+if (USE_DBGUART)
+set(STM32_DEFINES "${STM32_DEFINES} -DUSE_DBGUART")
+endif()
 
 # set compiler optimisations
 set(COMPILER_OPTIMISATION "-g -O3")
@@ -98,8 +112,8 @@ message(STATUS
     "   FreeRTOS        : ${FREERTOS_INC_DIR}\n"
     "   libopencm3      : ${LIBOPENCM3_INC_DIR}\n"
     "   semihosting     : ${SEMIHOSTING_LINKER_FLAGS}\n"
+    "   st-term         : ${USE_STTERM}\n"
 )
-
 
 # add the source code directory
 add_subdirectory(${SRC})

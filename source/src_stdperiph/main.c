@@ -7,7 +7,9 @@
 #include <stdio.h>
 #include "stm32f10x.h"
 #include "debug_trace.h"
+#ifdef USE_DGBUART
 #include "dev_uart.h"
+#endif
 #include "mod_led.h"
 #include "timer_sched.h"
 
@@ -24,7 +26,9 @@ uint32_t trace_levels;
 static LIST_HEAD(obj_timer_list);
 
 // Declare uart
+#ifdef USE_DGBUART
 DECLARE_UART_DEV(dbg_uart, USART1, 115200, 256, 10, 1);
+#endif
 
 #ifdef USE_SEMIHOSTING
 extern void initialise_monitor_handles(void);
@@ -74,11 +78,13 @@ int main(void)
 			| TRACE_LEVEL_DEFAULT
 			,1);
 
+#ifdef USE_DGBUART
 	// setup uart port
 	dev_uart_add(&dbg_uart);
 	// set callback for uart rx
  	dbg_uart.fp_dev_uart_cb = NULL;
  	mod_timer_add((void*) &dbg_uart, 5, (void*) &dev_uart_update, &obj_timer_list);
+#endif
 
 	/* Declare LED module and initialize it */
 	DECLARE_MODULE_LED(led_module, 8, 250);

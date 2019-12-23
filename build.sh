@@ -20,6 +20,10 @@ echo "Building the project in Linux environment"
 : ${USE_FREERTOS:="OFF"}
 # Enable semi-hosting
 : ${USE_SEMIHOSTING:="OFF"}
+# Enable st-term
+: ${USE_STTERM:="OFF"}
+# Enable debug UART
+: ${USE_DGBUART:="OFF"}
 # Select source folder. Give a false one to trigger an error
 : ${SRC:="__"}
 
@@ -54,6 +58,8 @@ if [ "${ARCHITECTURE}" == "stm32" ]; then
                 -DUSE_LIBOPENCM3=${USE_LIBOPENCM3} \
                 -DUSE_FREERTOS=${USE_FREERTOS} \
                 -DUSE_SEMIHOSTING=${USE_SEMIHOSTING} \
+                -DUSE_STTERM=${USE_STTERM} \
+                -DUSE_DBGUART=${USE_DBGUART} \
                 -DSRC=${SRC} \
                 "
 else
@@ -75,6 +81,8 @@ echo "cmake scripts     : ${SCRIPTS_CMAKE}"
 echo "IDE generator     : ${IDE_GENERATOR}"
 echo "Threads           : ${PARALLEL}"
 echo "Semihosting       : ${USE_SEMIHOSTING}"
+echo "st-term           : ${USE_STTERM}"
+echo "Debug UART        : ${USE_DBGUART}"
 
 mkdir -p build-stm32
 cd build-stm32
