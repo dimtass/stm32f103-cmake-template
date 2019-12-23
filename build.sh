@@ -23,7 +23,7 @@ echo "Building the project in Linux environment"
 # Enable st-term
 : ${USE_STTERM:="OFF"}
 # Enable debug UART
-: ${USE_DGBUART:="OFF"}
+: ${USE_DBGUART:="OFF"}
 # Select source folder. Give a false one to trigger an error
 : ${SRC:="__"}
 

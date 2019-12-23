@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include "stm32f10x.h"
 #include "debug_trace.h"
-#ifdef USE_DGBUART
+#ifdef USE_DBGUART
 #include "dev_uart.h"
 #endif
 #include "mod_led.h"
@@ -26,7 +26,7 @@ uint32_t trace_levels;
 static LIST_HEAD(obj_timer_list);
 
 // Declare uart
-#ifdef USE_DGBUART
+#ifdef USE_DBGUART
 DECLARE_UART_DEV(dbg_uart, USART1, 115200, 256, 10, 1);
 #endif
 
@@ -78,7 +78,7 @@ int main(void)
 			| TRACE_LEVEL_DEFAULT
 			,1);
 
-#ifdef USE_DGBUART
+#ifdef USE_DBGUART
 	// setup uart port
 	dev_uart_add(&dbg_uart);
 	// set callback for uart rx
