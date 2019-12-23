@@ -8,7 +8,6 @@ file(GLOB C_SOURCE
     # Add the local and project specific files
     main.c
     system_stm32f10x.c
-    syscalls.c
     stm32f10x_it.c
 )
 

@@ -21,3 +21,10 @@ set(STM32_DIMTASS_LIB_SRC
     ${STM32_DIMTASS_LIB_DIR}/src/tiny_printf.c
     ${STM32_DIMTASS_LIB_DIR}/src/stlinky.c
 )
+
+if (USE_DBGUART)
+  set(STM32_DIMTASS_LIB_SRC ${STM32_DIMTASS_LIB_SRC} ${STM32_DIMTASS_LIB_DIR}/src/syscalls.c)
+endif()
+if (USE_STTERM)
+  set(STM32_DIMTASS_LIB_SRC ${STM32_DIMTASS_LIB_SRC} ${STM32_DIMTASS_LIB_DIR}/src/syscalls.c)
+endif()

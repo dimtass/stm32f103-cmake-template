@@ -10,6 +10,9 @@
 #ifdef USE_DBGUART
 #include "dev_uart.h"
 #endif
+#ifdef USE_STTERM
+#include "stlinky.h"
+#endif
 #include "mod_led.h"
 #include "timer_sched.h"
 
@@ -78,7 +81,11 @@ int main(void)
 			| TRACE_LEVEL_DEFAULT
 			,1);
 
-#ifdef USE_DBGUART
+#ifdef USE_SEMIHOSTING
+	initialise_monitor_handles();
+#elif USE_STTERM
+	stlinky_init();
+#elif USE_DBGUART
 	// setup uart port
 	dev_uart_add(&dbg_uart);
 	// set callback for uart rx
@@ -96,9 +103,6 @@ int main(void)
 	dev_led_add(&def_led);
 	dev_led_set_pattern(&def_led, 0b11001100);
 
-#ifdef USE_SEMIHOSTING
-	initialise_monitor_handles();
-#endif
 	TRACE(("Program started\n"));
 
 	/* main loop */

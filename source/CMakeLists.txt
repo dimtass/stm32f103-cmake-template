@@ -22,15 +22,18 @@ set(STM32_DEFINES " \
     ")
 
 if (USE_SEMIHOSTING)
-set(STM32_DEFINES "${STM32_DEFINES} -DUSE_SEMIHOSTING")
+    message(STATUS "Using semhosting...")
+    set(STM32_DEFINES "${STM32_DEFINES} -DUSE_SEMIHOSTING")
 endif()
 
 if (USE_STTERM)
-set(STM32_DEFINES "${STM32_DEFINES} -DUSE_STTERM")
+    message(STATUS "Using st-term...")
+    set(STM32_DEFINES "${STM32_DEFINES} -DUSE_STTERM")
 endif()
 
 if (USE_DBGUART)
-set(STM32_DEFINES "${STM32_DEFINES} -DUSE_DBGUART")
+    message(STATUS "Using debug UART...")
+    set(STM32_DEFINES "${STM32_DEFINES} -DUSE_DBGUART")
 endif()
 
 # set compiler optimisations
@@ -84,23 +87,24 @@ create_language_provider("${CMAKE_BINARY_DIR}/.settings" "${GCC_PREFIX}-" "${CXX
 # enable asm for stm startup.s file
 enable_language(ASM)
 # Custom STM32 options for assembler and gcc
-set(STM32_ASM_OPTIONS "-mcpu=cortex-m3 -mthumb -mlittle-endian -mthumb-interwork ")
-set(STM32_COMPILER_OPTIONS "${STM32_ASM_OPTIONS} -ffunction-sections -fdata-sections -mfloat-abi=soft -Wall -Werror -Wl,-Map=output.map -Wl,--gc-sections -lc -lm ")
+set(STM32_ASM_OPTIONS "-march=armv7-m -mcpu=cortex-m3 -mthumb -mlittle-endian -mthumb-interwork")
+set(STM32_COMPILER_OPTIONS "${STM32_ASM_OPTIONS} -ffunction-sections -fdata-sections -mfloat-abi=soft -Wall -Werror -Wl,-Map=output.map -Wl,--gc-sections -lm -lc")
 # Set project options
 SET(CMAKE_C_FLAGS "${STM32_COMPILER_OPTIONS} ${COMPILER_OPTIMISATION} -std=c11" CACHE INTERNAL "c compiler flags")
 SET(CMAKE_CXX_FLAGS "${STM32_COMPILER_OPTIONS} ${COMPILER_OPTIMISATION} -std=c++11 " CACHE INTERNAL "cxx compiler flags")
 SET(CMAKE_ASM_FLAGS "${STM32_ASM_OPTIONS}" CACHE INTERNAL "asm compiler flags")
 # -mthumb -mcpu=cortex-m3 -mfix-cortex-m3-ldrd   -Wl,-Map=linker.map -Wl,-cref  -Wl,--gc-sections
-set(EXTRA_LINKER_FLAGS "--specs=nano.specs -lc -lm")
+set(EXTRA_LINKER_FLAGS "-lm -lc --specs=nano.specs")
 if (USE_SEMIHOSTING)
     set(EXTRA_LINKER_FLAGS "${EXTRA_LINKER_FLAGS} --specs=nosys.specs --specs=rdimon.specs -lrdimon")
 endif()
-SET(CMAKE_EXE_LINKER_FLAGS "${STM32_COMPILER_OPTIONS} ${LIBOPENCM3_LINKER_FLAGS} -Wl,-Map=linker.map -Wl,-cref -Wl,--gc-sections" CACHE INTERNAL "exe link flags")
+SET(CMAKE_EXE_LINKER_FLAGS "${STM32_COMPILER_OPTIONS} ${LIBOPENCM3_LINKER_FLAGS} -Wl,-Map=linker.map -Wl,-cref " CACHE INTERNAL "exe link flags")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${EXTRA_LINKER_FLAGS} -T${LINKER_FILE}")
 
 message(STATUS "System Processor      : ${CMAKE_SYSTEM_PROCESSOR}")
 message(STATUS
     "BUILD FLAGS:\n"
+    "   STM32_DEFINES   : ${STM32_DEFINES}\n"
     "   c flags         : ${CMAKE_C_FLAGS}\n"
     "   c++ flags       : ${CMAKE_CXX_FLAGS}\n"
     "   asm flags       : ${CMAKE_ASM_FLAGS}\n"
