@@ -13,9 +13,9 @@
 [submodule "source/libs/cmsis"]
 	path = source/libs/cmsis
 	url = https://github.com/dimtass/cmsis.git
-[submodule "source/libs/source/libs/stm32f1_dimtass_lib"]
-	path = source/libs/source/libs/stm32f1_dimtass_lib
+[submodule "source/libs/stm32f1_dimtass_lib"]
+	path = source/libs/stm32f1_dimtass_lib
 	url = https://bitbucket.org/dimtass/stm32f1_dimtass_lib.git
-[submodule "source/libs/source/libs/noarch_c_lib"]
-	path = source/libs/source/libs/noarch_c_lib
+[submodule "source/libs/noarch_c_lib"]
+	path = source/libs/noarch_c_lib
 	url = https://bitbucket.org/dimtass/noarch_c_lib.git
