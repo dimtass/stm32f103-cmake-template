@@ -7,14 +7,12 @@
 #include <stdio.h>
 #include "stm32f10x.h"
 #include "debug_trace.h"
-#ifdef USE_DBGUART
-#include "dev_uart.h"
-#endif
-#ifdef USE_STTERM
-#include "stlinky.h"
-#endif
 #include "mod_led.h"
 #include "timer_sched.h"
+
+#if defined(USE_STTERM)
+#include "stlinky.h"
+#endif
 
 #define LED_TIMER_MS 500
 
@@ -29,12 +27,18 @@ uint32_t trace_levels;
 static LIST_HEAD(obj_timer_list);
 
 // Declare uart
-#ifdef USE_DBGUART
+#if defined(USE_DBGUART)
+#include "dev_uart.h"
 DECLARE_UART_DEV(dbg_uart, USART1, 115200, 256, 10, 1);
 #endif
 
-#ifdef USE_SEMIHOSTING
+#if defined(USE_SEMIHOSTING)
 extern void initialise_monitor_handles(void);
+#endif
+
+#if defined(USE_OVERCLOCK)
+/* This function overclocks stm32 to 128MHz */
+extern uint32_t overclock_stm32f103(void);
 #endif
 
 static inline void main_loop(void)
@@ -71,6 +75,12 @@ void led_init(void *data)
 
 int main(void)
 {
+
+	#if defined(USE_OVERCLOCK)
+		/* overclock. Comment out for default clocks */
+		SystemCoreClock = overclock_stm32f103();
+	#endif
+
 	if (SysTick_Config(SystemCoreClock / 1000)) {
 		/* Capture error */
 		while (1);
@@ -81,11 +91,11 @@ int main(void)
 			| TRACE_LEVEL_DEFAULT
 			,1);
 
-#ifdef USE_SEMIHOSTING
+#if defined(USE_SEMIHOSTING)
 	initialise_monitor_handles();
-#elif USE_STTERM
+#elif defined(USE_STTERM)
 	stlinky_init();
-#elif USE_DBGUART
+#elif defined(USE_DBGUART)
 	// setup uart port
 	dev_uart_add(&dbg_uart);
 	// set callback for uart rx

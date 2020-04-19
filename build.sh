@@ -3,13 +3,15 @@
 echo "Building the project in Linux environment"
 
 # Toolchain path
-: ${TOOLCHAIN_DIR:="/opt/toolchains/gcc-arm-none-eabi-7-2018-q2-update"}
+: ${TOOLCHAIN_DIR:="/opt/toolchains/gcc-arm-none-eabi-9-2019-q4-major"}
 # select cmake toolchain
 : ${CMAKE_TOOLCHAIN:=TOOLCHAIN_arm_none_eabi_cortex_m3.cmake}
 # select to clean previous builds
 : ${CLEANBUILD:=false}
 # select to create eclipse project files
 : ${ECLIPSE_IDE:=false}
+# Use overclock
+: ${USE_OVERCLOCK:="OFF"}
 # Select Stdperiph lib use
 : ${USE_STDPERIPH_DRIVER:="OFF"}
 # Select Stdperiph lib use
@@ -23,7 +25,7 @@ echo "Building the project in Linux environment"
 # Enable st-term
 : ${USE_STTERM:="OFF"}
 # Enable debug UART
-: ${USE_DBGUART:="OFF"}
+: ${USE_DBGUART:="ON"}
 # Select source folder. Give a false one to trigger an error
 : ${SRC:="__"}
 
@@ -60,6 +62,7 @@ if [ "${ARCHITECTURE}" == "stm32" ]; then
                 -DUSE_SEMIHOSTING=${USE_SEMIHOSTING} \
                 -DUSE_STTERM=${USE_STTERM} \
                 -DUSE_DBGUART=${USE_DBGUART} \
+                -DUSE_OVERCLOCK=${USE_OVERCLOCK} \
                 -DSRC=${SRC} \
                 "
 else
@@ -83,6 +86,7 @@ echo "Threads           : ${PARALLEL}"
 echo "Semihosting       : ${USE_SEMIHOSTING}"
 echo "st-term           : ${USE_STTERM}"
 echo "Debug UART        : ${USE_DBGUART}"
+echo "USE_OVERCLOCK     : ${USE_OVERCLOCK}"
 
 mkdir -p build-stm32
 cd build-stm32
