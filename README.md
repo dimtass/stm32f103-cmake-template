@@ -1,6 +1,8 @@
 STM32F103 cmake template
 ----
 
+[![dimtass](https://circleci.com/gh/dimtass/stm32f103-cmake-template.svg?style=svg)](https://circleci.com/gh/dimtass/stm32f103-cmake-template)
+
 This is a template cmake project for the stm32f103. So what's
 so special about it? Well, it supports the following things:
 

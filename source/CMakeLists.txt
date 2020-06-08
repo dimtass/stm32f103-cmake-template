@@ -2,7 +2,7 @@
 
 cmake_minimum_required(VERSION 3.2)
 
-project(stm32-cmake-template LANGUAGES C CXX)
+project(stm32f103-cmake-template LANGUAGES C CXX)
 
 option(USE_STDPERIPH_DRIVER "Use stdperiph library" OFF)
 option(USE_STM32_USB_FS_LIB "Use the STM32 USB FS device driver lib" OFF) 
