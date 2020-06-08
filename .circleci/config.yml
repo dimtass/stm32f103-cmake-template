@@ -12,9 +12,9 @@ jobs:
             git submodule update --init --recursive;
             mkdir -p /tmp/artifacts;
             CLEANBUILD=true USE_STDPERIPH_DRIVER=ON SRC=src_stdperiph ./build.sh;
-            cp build-stm32/src_stdperiph/stm32-cmake-template.bin /tmp/artifacts/stm32f103-cmake-template-stdperiph.bin;
+            cp build-stm32/src_stdperiph/stm32f103-cmake-template.bin /tmp/artifacts/stm32f103-cmake-template-stdperiph.bin;
             CLEANBUILD=true USE_LIBOPENCM3=ON USE_FREERTOS=ON SRC=src_freertos ./build.sh;
-            cp build-stm32/src_freertos/stm32-cmake-template.bin /tmp/artifacts/stm32f103-cmake-template-freertos.bin;
+            cp build-stm32/src_freertos/stm32f103-cmake-template.bin /tmp/artifacts/stm32f103-cmake-template-freertos.bin;
       
       - store_artifacts:
           path: /tmp/artifacts/stm32f103-cmake-template-stdperiph.bin
